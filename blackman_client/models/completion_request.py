@@ -3,7 +3,7 @@
 """
     Blackman AI API
 
-    A transparent AI API proxy that optimizes token usage to reduce costs.  ## Authentication  Blackman AI supports two authentication methods:  ### 1. API Key (Recommended for integrations)  Use the API key created from your dashboard:  ```bash curl -X POST https://ap.useblackman.ai/v1/completions \\   -H \"Authorization: Bearer sk_your_api_key_here\" \\   -H \"Content-Type: application/json\" \\   -d '{\"provider\": \"OpenAI\", \"model\": \"gpt-4\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello!\"}]}' ```  ### 2. JWT Token (For web UI)  Obtain a JWT token by logging in:  ```bash curl -X POST https://ap.useblackman.ai/v1/auth/login \\   -H \"Content-Type: application/json\" \\   -d '{\"email\": \"user@example.com\", \"password\": \"yourpassword\"}' ```  Then use the token:  ```bash curl -X POST https://ap.useblackman.ai/v1/completions \\   -H \"Authorization: Bearer your_jwt_token\" \\   -H \"Content-Type: application/json\" \\   -d '{...}' ```  ### Provider API Keys (Optional)  You can optionally provide your own LLM provider API key via the `X-Provider-Api-Key` header, or store it in your account settings.  ## Client SDKs  Auto-generated SDKs are available for 10 languages:  - **TypeScript**: [View Docs](/v1/sdks/typescript) - **Python**: [View Docs](/v1/sdks/python) - **Go**: [View Docs](/v1/sdks/go) - **Java**: [View Docs](/v1/sdks/java) - **Ruby**: [View Docs](/v1/sdks/ruby) - **PHP**: [View Docs](/v1/sdks/php) - **C#**: [View Docs](/v1/sdks/csharp) - **Rust**: [View Docs](/v1/sdks/rust) - **Swift**: [View Docs](/v1/sdks/swift) - **Kotlin**: [View Docs](/v1/sdks/kotlin)  All SDKs are generated from this OpenAPI spec using [openapi-generator](https://openapi-generator.tech).  ## Quick Start  ```python # Python example with API key import blackman_client from blackman_client import CompletionRequest  configuration = blackman_client.Configuration(     host=\"http://localhost:8080\",     access_token=\"sk_your_api_key_here\"  # Your Blackman API key )  with blackman_client.ApiClient(configuration) as api_client:     api = blackman_client.CompletionsApi(api_client)     response = api.completions(         CompletionRequest(             provider=\"OpenAI\",             model=\"gpt-4o\",             messages=[{\"role\": \"user\", \"content\": \"Hello!\"}]         )     ) ```
+    A transparent AI API proxy that optimizes token usage to reduce costs.  ## Authentication  Blackman AI supports two authentication methods:  ### 1. API Key (Recommended for integrations)  Use the API key created from your dashboard:  ```bash curl -X POST https://app.useblackman.ai/v1/completions \\   -H \"Authorization: Bearer sk_your_api_key_here\" \\   -H \"Content-Type: application/json\" \\   -d '{\"provider\": \"OpenAI\", \"model\": \"gpt-4\", \"messages\": [{\"role\": \"user\", \"content\": \"Hello!\"}]}' ```  ### 2. JWT Token (For web UI)  Obtain a JWT token by logging in:  ```bash curl -X POST https://app.useblackman.ai/v1/auth/login \\   -H \"Content-Type: application/json\" \\   -d '{\"email\": \"user@example.com\", \"password\": \"yourpassword\"}' ```  Then use the token:  ```bash curl -X POST https://app.useblackman.ai/v1/completions \\   -H \"Authorization: Bearer your_jwt_token\" \\   -H \"Content-Type: application/json\" \\   -d '{...}' ```  ### Provider API Keys (Optional)  You can optionally provide your own LLM provider API key via the `X-Provider-Api-Key` header, or store it in your account settings.  ## Client SDKs  Auto-generated SDKs are available for 10 languages:  - **TypeScript**: [View Docs](https://github.com/blackman-ai/typescript-sdk) - **Python**: [View Docs](https://github.com/blackman-ai/python-sdk) - **Go**: [View Docs](https://github.com/blackman-ai/go-sdk) - **Java**: [View Docs](https://github.com/blackman-ai/java-sdk) - **Ruby**: [View Docs](https://github.com/blackman-ai/ruby-sdk) - **PHP**: [View Docs](https://github.com/blackman-ai/php-sdk) - **C#**: [View Docs](https://github.com/blackman-ai/csharp-sdk) - **Rust**: [View Docs](https://github.com/blackman-ai/rust-sdk) - **Swift**: [View Docs](https://github.com/blackman-ai/swift-sdk) - **Kotlin**: [View Docs](https://github.com/blackman-ai/kotlin-sdk)  All SDKs are generated from this OpenAPI spec using [openapi-generator](https://openapi-generator.tech).  ## Quick Start  ```python # Python example with API key import blackman_client from blackman_client import CompletionRequest  configuration = blackman_client.Configuration(     host=\"http://localhost:8080\",     access_token=\"sk_your_api_key_here\"  # Your Blackman API key )  with blackman_client.ApiClient(configuration) as api_client:     api = blackman_client.CompletionsApi(api_client)     response = api.completions(         CompletionRequest(             provider=\"OpenAI\",             model=\"gpt-4o\",             messages=[{\"role\": \"user\", \"content\": \"Hello!\"}]         )     ) ```
 
     The version of the OpenAPI document: 0.1.0
     Generated by OpenAPI Generator (https://openapi-generator.tech)
@@ -35,9 +35,10 @@ class CompletionRequest(BaseModel):
     temperature: Optional[Union[StrictFloat, StrictInt]] = None
     top_p: Optional[Union[StrictFloat, StrictInt]] = None
     messages: List[Message]
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="Optional metadata for tracking, analytics, and conditional processing. Can include session IDs, user context, feature flags, or any custom data. This metadata is logged with the request and can be used for filtering/analysis.")
     model: StrictStr
     provider: Provider
-    __properties: ClassVar[List[str]] = ["max_tokens", "stop", "stream", "temperature", "top_p", "messages", "model", "provider"]
+    __properties: ClassVar[List[str]] = ["max_tokens", "stop", "stream", "temperature", "top_p", "messages", "metadata", "model", "provider"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -110,6 +111,11 @@ class CompletionRequest(BaseModel):
         if self.top_p is None and "top_p" in self.model_fields_set:
             _dict['top_p'] = None
 
+        # set to None if metadata (nullable) is None
+        # and model_fields_set contains the field
+        if self.metadata is None and "metadata" in self.model_fields_set:
+            _dict['metadata'] = None
+
         return _dict
 
     @classmethod
@@ -128,6 +134,7 @@ class CompletionRequest(BaseModel):
             "temperature": obj.get("temperature"),
             "top_p": obj.get("top_p"),
             "messages": [Message.from_dict(_item) for _item in obj["messages"]] if obj.get("messages") is not None else None,
+            "metadata": obj.get("metadata"),
             "model": obj.get("model"),
             "provider": obj.get("provider")
         })

@@ -1,9 +1,9 @@
 [project]
 name = "blackman_client"
-version = "0.0.5"
+version = "0.0.7"
 description = "Blackman AI API"
 authors = [
-  {name = "Blackman AI Support",email = "team@openapitools.org"},
+  {name = "Blackman AI",email = "team@openapitools.org"},
 ]
 license = "MIT"
 readme = "README.md"
