@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 NAME = "blackman-client"
-VERSION = "0.0.5"
+VERSION = "0.0.10"
 REQUIRES = [
     "urllib3 >= 1.25.3",
     "python-dateutil",

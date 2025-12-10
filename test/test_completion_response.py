@@ -40,7 +40,7 @@ class TestCompletionResponse(unittest.TestCase):
                         finish_reason = '', 
                         index = 0, 
                         message = blackman_client.models.message.Message(
-                            content = '', 
+                            content = null, 
                             role = '', ), )
                     ],
                 created = 56,
@@ -59,7 +59,7 @@ class TestCompletionResponse(unittest.TestCase):
                         finish_reason = '', 
                         index = 0, 
                         message = blackman_client.models.message.Message(
-                            content = '', 
+                            content = null, 
                             role = '', ), )
                     ],
                 created = 56,

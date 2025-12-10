@@ -17,19 +17,26 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List
-from blackman_client.models.message_content import MessageContent
+from blackman_client.models.image_url import ImageUrl
 from typing import Optional, Set
 from typing_extensions import Self
 
-class Message(BaseModel):
+class ContentPartOneOf1(BaseModel):
     """
-    Message
+    ContentPartOneOf1
     """ # noqa: E501
-    content: MessageContent
-    role: StrictStr = Field(description="\"user\", \"assistant\", \"system\"")
-    __properties: ClassVar[List[str]] = ["content", "role"]
+    image_url: ImageUrl
+    type: StrictStr
+    __properties: ClassVar[List[str]] = ["image_url", "type"]
+
+    @field_validator('type')
+    def type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['image_url']):
+            raise ValueError("must be one of enum values ('image_url')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -49,7 +56,7 @@ class Message(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of Message from a JSON string"""
+        """Create an instance of ContentPartOneOf1 from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -70,14 +77,14 @@ class Message(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of content
-        if self.content:
-            _dict['content'] = self.content.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of image_url
+        if self.image_url:
+            _dict['image_url'] = self.image_url.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of Message from a dict"""
+        """Create an instance of ContentPartOneOf1 from a dict"""
         if obj is None:
             return None
 
@@ -85,8 +92,8 @@ class Message(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "content": MessageContent.from_dict(obj["content"]) if obj.get("content") is not None else None,
-            "role": obj.get("role")
+            "image_url": ImageUrl.from_dict(obj["image_url"]) if obj.get("image_url") is not None else None,
+            "type": obj.get("type")
         })
         return _obj
 

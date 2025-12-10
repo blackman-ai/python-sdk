@@ -44,7 +44,7 @@ class TestCompletionRequest(unittest.TestCase):
                 top_p = 0.9,
                 messages = [
                     blackman_client.models.message.Message(
-                        content = '', 
+                        content = null, 
                         role = '', )
                     ],
                 metadata = None,
@@ -55,7 +55,7 @@ class TestCompletionRequest(unittest.TestCase):
             return CompletionRequest(
                 messages = [
                     blackman_client.models.message.Message(
-                        content = '', 
+                        content = null, 
                         role = '', )
                     ],
                 model = 'gpt-4',

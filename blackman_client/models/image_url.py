@@ -18,18 +18,17 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
-from blackman_client.models.message_content import MessageContent
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class Message(BaseModel):
+class ImageUrl(BaseModel):
     """
-    Message
+    ImageUrl
     """ # noqa: E501
-    content: MessageContent
-    role: StrictStr = Field(description="\"user\", \"assistant\", \"system\"")
-    __properties: ClassVar[List[str]] = ["content", "role"]
+    detail: Optional[StrictStr] = Field(default=None, description="Optional detail level: \"auto\", \"low\", or \"high\"")
+    url: StrictStr
+    __properties: ClassVar[List[str]] = ["detail", "url"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -49,7 +48,7 @@ class Message(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of Message from a JSON string"""
+        """Create an instance of ImageUrl from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -70,14 +69,16 @@ class Message(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of content
-        if self.content:
-            _dict['content'] = self.content.to_dict()
+        # set to None if detail (nullable) is None
+        # and model_fields_set contains the field
+        if self.detail is None and "detail" in self.model_fields_set:
+            _dict['detail'] = None
+
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of Message from a dict"""
+        """Create an instance of ImageUrl from a dict"""
         if obj is None:
             return None
 
@@ -85,8 +86,8 @@ class Message(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "content": MessageContent.from_dict(obj["content"]) if obj.get("content") is not None else None,
-            "role": obj.get("role")
+            "detail": obj.get("detail"),
+            "url": obj.get("url")
         })
         return _obj
 

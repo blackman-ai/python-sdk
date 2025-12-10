@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**content** | **str** |  | 
+**content** | [**MessageContent**](MessageContent.md) |  | 
 **role** | **str** | \&quot;user\&quot;, \&quot;assistant\&quot;, \&quot;system\&quot; | 
 
 ## Example

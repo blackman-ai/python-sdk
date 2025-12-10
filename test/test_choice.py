@@ -38,14 +38,14 @@ class TestChoice(unittest.TestCase):
                 finish_reason = '',
                 index = 0,
                 message = blackman_client.models.message.Message(
-                    content = '', 
+                    content = null, 
                     role = '', )
             )
         else:
             return Choice(
                 index = 0,
                 message = blackman_client.models.message.Message(
-                    content = '', 
+                    content = null, 
                     role = '', ),
         )
         """

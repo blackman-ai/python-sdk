@@ -35,12 +35,12 @@ class TestMessage(unittest.TestCase):
         model = Message()
         if include_optional:
             return Message(
-                content = '',
+                content = None,
                 role = ''
             )
         else:
             return Message(
-                content = '',
+                content = None,
                 role = '',
         )
         """

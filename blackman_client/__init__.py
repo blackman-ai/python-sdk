@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "0.0.7"
+__version__ = "0.0.10"
 
 # Define package exports
 __all__ = [
@@ -34,8 +34,13 @@ __all__ = [
     "CompletionOptions",
     "CompletionRequest",
     "CompletionResponse",
+    "ContentPart",
+    "ContentPartOneOf",
+    "ContentPartOneOf1",
+    "ImageUrl",
     "InvalidateResponse",
     "Message",
+    "MessageContent",
     "Provider",
     "SemanticCacheConfig",
     "SemanticCacheStats",
@@ -65,8 +70,13 @@ from blackman_client.models.choice import Choice as Choice
 from blackman_client.models.completion_options import CompletionOptions as CompletionOptions
 from blackman_client.models.completion_request import CompletionRequest as CompletionRequest
 from blackman_client.models.completion_response import CompletionResponse as CompletionResponse
+from blackman_client.models.content_part import ContentPart as ContentPart
+from blackman_client.models.content_part_one_of import ContentPartOneOf as ContentPartOneOf
+from blackman_client.models.content_part_one_of1 import ContentPartOneOf1 as ContentPartOneOf1
+from blackman_client.models.image_url import ImageUrl as ImageUrl
 from blackman_client.models.invalidate_response import InvalidateResponse as InvalidateResponse
 from blackman_client.models.message import Message as Message
+from blackman_client.models.message_content import MessageContent as MessageContent
 from blackman_client.models.provider import Provider as Provider
 from blackman_client.models.semantic_cache_config import SemanticCacheConfig as SemanticCacheConfig
 from blackman_client.models.semantic_cache_stats import SemanticCacheStats as SemanticCacheStats

@@ -18,8 +18,13 @@ from blackman_client.models.choice import Choice
 from blackman_client.models.completion_options import CompletionOptions
 from blackman_client.models.completion_request import CompletionRequest
 from blackman_client.models.completion_response import CompletionResponse
+from blackman_client.models.content_part import ContentPart
+from blackman_client.models.content_part_one_of import ContentPartOneOf
+from blackman_client.models.content_part_one_of1 import ContentPartOneOf1
+from blackman_client.models.image_url import ImageUrl
 from blackman_client.models.invalidate_response import InvalidateResponse
 from blackman_client.models.message import Message
+from blackman_client.models.message_content import MessageContent
 from blackman_client.models.provider import Provider
 from blackman_client.models.semantic_cache_config import SemanticCacheConfig
 from blackman_client.models.semantic_cache_stats import SemanticCacheStats

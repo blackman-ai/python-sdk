@@ -1,6 +1,6 @@
 [project]
 name = "blackman_client"
-version = "0.0.7"
+version = "0.0.10"
 description = "Blackman AI API"
 authors = [
   {name = "Blackman AI",email = "team@openapitools.org"},
